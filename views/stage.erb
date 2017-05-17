@@ -1,4 +1,7 @@
-<h1><%= @stage.name %></h1>
+<h3> <%= @producer.name %> </h3>
+
+
+<h4><%= @stage.name %></h4>
 
 <div class="row">
   <div class="col-md-6">
@@ -6,17 +9,25 @@
       <h4>Here are the artists performing on this stage:</h4>
       <ul>
         <% @stage.performances.each do |performance| %>
-        <li><a href="/artists/<%= performance.artist.id %>"><%= performance.artist.name %></a></li>
+        <li>
+          <form action="/producer/<%= @producer.id %>/stage/<%= @stage.id %>/delete_artist">
+            <input type="hidden" name="_method" value="delete">
+            <a href="/producer/artist/<%= performance.artist.id %>"><%= performance.artist.name %></a>, <strong>Performance Time:</strong> <%= performance.performance_time %>
+            <button type="submit" id="icon">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </form>
+        </li>
         <% end %>
       </ul>
-      <p>Click <a href="/stages/<%= @stage.id %>/add_artists">here</a> to add more artists.</p>
+      <p>Click <a href="/producer/<%= @producer.id %>/stage/<%= @stage.id %>/add_artists">here</a> to add more artists.</p>
     <% else %>
-      <p>This stage doesn't have any artists yet. Click <a href="/stages/<%= @stage.id %>/add_artists">here</a> to add some.</p>
+      <p>This stage doesn't have any artists yet. Click <a href="/producer/<%= @producer.id %>/stage/<%= @stage.id %>/add_artists">here</a> to add some.</p>
     <% end %>
   </div>
   <div class="col-md-6">
     <div class="form-group">
-      <form action="/stages/<%= @stage.id %>" method="post">
+      <form action="/producer/<%= @producer.id %>/stage/<%= @stage.id %>" method="post">
         <input type="hidden" name="_method" value="patch">
         <h5><%= @message %></h5>
         <label for="name">Update stage name:</label>
@@ -26,7 +37,7 @@
       </form>
     </div>
     <br>
-    <form action="/stages/<%= @stage.id %>" method="post">
+    <form action="/producer/<%= @producer.id %>/stage/<%= @stage.id %>/delete" method="post">
       <input type="hidden" name="_method" value="delete">
       <button type="submit" class="btn-danger">DELETE STAGE</button>
     </form>

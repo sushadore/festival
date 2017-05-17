@@ -100,6 +100,7 @@ get "/producer/:id" do
   @producer = Producer.find(params.fetch('id'))
   @stages = Stage.all
   @artists = Artist.all
+
   erb :producer
 end
 
@@ -126,12 +127,13 @@ end
 
 # PRODUCER STAGE CRUD **********
 
-get "/stages/add" do
+get "/producer/:prod_id/stage/add" do |prod_id|
+  @producer = Producer.find(prod_id)
   @stages = Stage.all
   erb :add_stage
 end
 
-post "/stages/new" do
+post "/producer/:prod_id/stage/new" do
   stage_name = params["stage_name"]
   @stage = stage_name
   @new_stage = Stage.create({:name => stage_name})
@@ -142,29 +144,57 @@ post "/stages/new" do
   end
 end
 
-get "/stages/:id" do
-  @stage = Stage.find(params.fetch('id').to_i)
+get "/producer/:prod_id/stage/:stage_id" do |prod_id, stage_id|
+  @producer = Producer.find(prod_id)
+  @stage = Stage.find(stage_id)
+  @performances = Performance.all
+  erb :stage
+end
+
+get "/producer/:prod_id/stage/:stage_id/delete_artist" do |prod_id, stage_id|
+  @producer = Producer.find(prod_id)
+  @stage = Stage.find(stage_id)
   @performances = Performance.all
 
   erb :stage
 end
 
-patch "/stages/:id" do
+delete "/producer/:prod_id/stage/:stage_id/delete_artist" do |prod_id, stage_id|
+  @stage = Stage.find(stage_id)
+
+  @stage.performances.artists.delete(artist)
+  redirect "/producer/#{prod_id}/stage/#{stage_id}"
+end
+
+patch "/producer/:prod_id/stage/:stage_id" do |prod_id, stage_id|
 
 end
 
-get "/stages/:id/add_artists" do
-  id = params.fetch("id").to_i
+delete "/producer/:prod_id/stage/:stage_id/delete" do |prod_id, stage_id|
+  @stage = Stage.find(stage_id)
+  @stage.delete
+  redirect "/producer/#{prod_id}"
+end
+
+get "/producer/:prod_id/stage/:stage_id/add_artists" do |prod_id, stage_id|
+  @producer = Producer.find(prod_id)
   @performances = Performance.all
-  @stage = Stage.find(id)
+  @stage = Stage.find(stage_id)
   @artists = Artist.all
   erb :add_artists_to_stages
 end
 
-patch "/stages/:id/artists" do |id|
-  @stage = Stage.find(id)
-  params['artist_ids'].each do |artist|
-    @stage.performances << Performance.create({:stage_id => id, :artist_id => artist})
-  end
-  redirect "/stages/#{id}"
+patch "/producer/:prod_id/stage/:stage_id/artists" do |prod_id, stage_id|
+  @stage = Stage.find(stage_id)
+  artist_id = params.fetch('artist_id')
+  performance_time = params.fetch('performance_time')
+  @stage.performances << Performance.create({:stage_id => stage_id, :artist_id => artist_id, :performance_time => performance_time})
+  redirect "/producer/#{prod_id}/stage/#{stage_id}"
+end
+
+
+delete "/producer/:prod_id/delete" do |prod_id|
+  stage_id = params.fetch("stage_id")
+  Stage.where(id: stage_id).destroy_all
+  redirect "/producer/#{prod_id}"
 end

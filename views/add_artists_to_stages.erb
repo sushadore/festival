@@ -1,17 +1,22 @@
-<h3>Stage: <%= @stage.name %></h3>
+<h3> <%= @producer.name %> </h3>
+
+<h4>Stage: <%= @stage.name %></h4>
 
 <% if @artists.any? %>
   <h4>Select all artists to add to this stage</h4>
-  <form action="/stages/<%= @stage.id %>/artists" method="post">
+  <form action="/producer/<%= @producer.id %>/stage/<%= @stage.id %>/artists" method="post">
     <input type="hidden" name="_method" value="patch">
-    <% @artists.each do |artist| %>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" name="artist_ids[]" value="<%= artist.id %>"><%= artist.name %>
-        </label>
-      </div>
-    <% end %>
-    <button type="submit" class="btn-warning">Add Artist(s)</button>
+    <label for="artist_id">Select an artist to add to this stage:</label>
+    <select name='artist_id' type='text' required>
+      <% @artists.each do |artist| %>
+        <option value="<%= artist.id()%>"> <%= artist.name() %> </option>
+      <% end %>
+    </select>
+    <br>
+    <label for="performace_time">Then select a performance time:<small>Date-time format</small></label>
+    <input type="datetime-local" name="performance_time">
+    <br>
+    <button type="submit" class="btn-warning">Add Artist</button>
   </form>
 <% else %>
   <p>There are no artists to add yet. Click <a href="/artists">here</a> to add some first.</p>

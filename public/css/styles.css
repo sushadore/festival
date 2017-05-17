@@ -1,0 +1,9 @@
+button#icon {
+   background:none!important;
+   color: darkred;
+   border:none;
+   padding:0!important;
+   font: inherit;
+   /*border is optional*/
+   cursor: pointer;
+}
