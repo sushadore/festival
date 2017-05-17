@@ -2,8 +2,6 @@ require "bundler/setup"
 require 'pry'
 require "pry-byebug"
 
-
-
 Bundler.require :default
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 enable  :sessions, :logging
@@ -21,7 +19,7 @@ post "/attendee/signup" do
   if @attendee.save
     erb :attendee
   else
-    redirect back
+    erb :security
   end
 end
 
@@ -36,7 +34,7 @@ post "/attendee/success" do
     session[:user_id] = @attendee.id
     erb :attendee
   else
-    redirect back
+    erb :security
   end
 end
 
@@ -75,8 +73,6 @@ get('/attendee/:id/remove_artist/:artist_id') do |attendee_id, artist_id|
   attendee.artists.destroy(artist)
   redirect to("/attendee/#{attendee_id}")
 end
-
-
 
 # ******** PRODUCER/ADMIN SIDE ********
 
