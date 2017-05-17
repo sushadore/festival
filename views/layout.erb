@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <title>Personal Festival Scheduler</title>
+    <link href="https://fonts.googleapis.com/css?family=Acme|Montserrat+Subrayada|Roboto" rel="stylesheet">    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
     <link  rel='stylesheet' href="/css/styles.css" >
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
   </head>
   <body>
-    <a href="/"><div class="row" id="header"><h1>Personal Festival Scheduler</h1></h1></div></a>
+    <a id="header" href="/"><div class="row" id="header"><h1>Personal Festival Scheduler</h1></h1></div></a>
     <div class="container">
       <%= yield %>
     </div>
     <div style="position: relative">
       <div class="row" id="footer">
         <div class="col-sm-4">
-          <h5>Festival Producer? <a id="footer-link" href="/producer/signin">Sign-in</a> • <a id="footer-link" href="/producer/signup">Create Account</a>
-          </h5>
+          <h4>Festival Producer? <a id="footer-link" href="/producer/signin">Sign-in</a> • <a id="footer-link" href="/producer/signup">Create Account</a>
+          </h4>
         </div>
         <div class="col-sm-4">
-          <h5><a id="footer-link" href="/">Return Home</a><h5>
+          <h4><a id="footer-link" href="/">Return Home</a><h4>
         </div>
         <div class="col-sm-4">
-          <h5>Created By: Susha, Steven, Monique, Sowmya</h5>
+          <h4>Created By: Susha, Steven, Monique, Sowmya</h4>
         </div>
       </div>
     </div>

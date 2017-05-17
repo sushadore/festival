@@ -124,12 +124,13 @@ get "/producer/:id" do
   erb :producer
 end
 
-get "/producers/add-artists" do
+get "/producer/:id/add-artists" do |id|
+  @producer = Producer.find(id)
   @artists = Artist.all
   erb :producer_add_artists
 end
 
-post "/producers/add-artists" do
+post "/producer/:id/add-artists" do |id|
   artist_data = params.fetch('artist')
   @artist = Artist.create(artist_data)
   redirect back
