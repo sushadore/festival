@@ -2,28 +2,34 @@
   <div class="col-md-8">
   </div>
   <div class="col-md-4">
-    <h2>Festival Attendee:</h2>
-    <br>
-    <h3><a href="/attendee/signin">Sign-in</a></h3>
   </div>
 </div>
 <br>
 <div class="row">
-  <div class="col-md-8">
+  <div class="well col-md-6" id="home-info">
+    <h3>Welcome to the personal festival scheduler!</h3>
+    <p>Are you a <strong>music festival fanatic</strong>? Do you hate the <strong>limited options</strong> you have for easily organizing your favorite artists and seeing which stages and what times they'll be performing at? Well <strong><u>this</u></strong> is the app for you! With this app you'll find a very easy to use interface allowing you to add your top artist and view their details in a neat and clean fashion. There is also a review/comment section so you can communicate with fellow festival goers and get involved in the culture!</p>
+    <h5>Want to get started? Just create an account and you're ready to go!</h5>
+  </div>
+  <div class="col-md-2">
+
   </div>
   <div class="well col-md-4" id="attendee-signin">
+    <h2 style="text-align: center;"><u>Festival Attendee</u></h2>
+    <br>
     <h4>Create Account:</h4>
     <form action="/attendee/signup" method="post">
       <label for="name">Name:</label>
-      <input class="form-control" type="text" name="name" id="name">
+      <input class="form-control" type="text" name="name" id="name" required>
       <br>
       <label for="username">New User name:</label>
-      <input class="form-control" type="text" name="username" id="username">
+      <input class="form-control" type="text" name="username" id="username" required>
       <br>
       <label for="password">New User Password:</label>
-      <input class="form-control" type="password" name="password" id="password">
+      <input class="form-control" type="password" name="password" id="password" required>
       <br>
       <button type="submit" class="btn btn-success">Add User</button>
+      <a href="/attendee/signin" class="btn btn-warning">Sign-in</a>
     </form>
   </div>
 </div>

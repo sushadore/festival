@@ -21,7 +21,7 @@ post "/attendee/signup" do
   if @attendee.save
     erb :attendee
   else
-    erb :security
+    redirect back
   end
 end
 
@@ -36,7 +36,7 @@ post "/attendee/success" do
     session[:user_id] = @attendee.id
     erb :attendee
   else
-    erb :security
+    redirect back
   end
 end
 
@@ -160,7 +160,7 @@ post "/producer/:prod_id/stage/new" do
   if @new_stage.save
     redirect back
   else
-    erb :security
+    redirect back
   end
 end
 

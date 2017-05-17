@@ -1,15 +1,24 @@
+body {
+  background: linear-gradient(rgb(255, 242, 230), rgb(255, 230, 204), rgb(255, 242, 230));
+}
+
+
 #header {
-  background-color: rgb(244, 229, 215);
+  background-color: rgb(96, 64, 32);
   text-align: center;
 }
 
-#header a {
-  color: rgb(99, 54, 54);
+a #header {
+  color: rgba(255, 230, 230, 0.8);
   text-decoration: none;
 }
 
 .well#attendee-signin {
-  background-color: rgb(243, 229, 216);
+  background-color: rgba(198, 140, 83, 0.3);
+}
+
+.well#home-info {
+  background-color: rgba(198, 140, 83, 0.3);
 }
 
 #footer {
