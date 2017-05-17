@@ -10,13 +10,8 @@
       <ul>
         <% @stage.performances.each do |performance| %>
         <li>
-          <form action="/producer/<%= @producer.id %>/stage/<%= @stage.id %>/delete_artist">
-            <input type="hidden" name="_method" value="delete">
-            <a href="/producer/artist/<%= performance.artist.id %>"><%= performance.artist.name %></a>, <strong>Performance Time:</strong> <%= performance.performance_time %>
-            <button type="submit" id="icon">
-              <span class="glyphicon glyphicon-remove"></span>
-            </button>
-          </form>
+          <a href="/producer/artist/<%= performance.artist.id %>"><%= performance.artist.name %></a>, <strong>Performance Time:</strong> <%= performance.performance_time %>
+          <a id="icon" href="/producer/<%= @producer.id %>/stage/<%= @stage.id %>/<%= performance.artist.id %>/delete_artist"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
         </li>
         <% end %>
       </ul>

@@ -14,10 +14,9 @@ end
 
 post "/attendee/signup" do
   attendee_name = params['name']
-
   attendee_username = params['username']
   attendee_password = params['password']
-  @artist = Artist.all
+  @artists = Artist.all
   @attendee = Attendee.create(:name => attendee_name, :username => attendee_username, :password => attendee_password, :id => nil)
   if @attendee.save
     erb :attendee
@@ -27,33 +26,54 @@ post "/attendee/signup" do
 end
 
 get "/attendee/signin" do
-
   erb :attendee_login
 end
 
 post "/attendee/success" do
-  if @attendee = Attendee.find_by(:username => params.fetch('username'))
-    if @attendee.password == params.fetch('password')
-      session[:user_id] = @attendee.id
-      erb :attendee
-    else
-      erb :security
-    end
+  @attendee = Attendee.find_by(:username => params.fetch('username'))
+  @artists = Artist.all
+  if @attendee.password == params.fetch('password')
+    session[:user_id] = @attendee.id
+    erb :attendee
   else
     erb :security
   end
 end
 
-# end
 get "/attendee/:id" do
   id = params.fetch('id')
   @attendee = Attendee.find(id)
-  if session[:username] !=nil
-    @artist.all
-    erb :attendee
-  else
-    erb :security
-  end
+  @attendee_artist = @attendee.artists
+  @artists = Artist.all - @attendee_artist
+  erb :attendee
+end
+
+post "/attendee/:id/add_artist" do
+  @attendee = Attendee.find(params['id'])
+  @artist = Artist.find(params['artists_id'])
+  @attendee.artists.push(@artist)
+  @artists = Artist.all
+  redirect "/attendee/#{@attendee.id}"
+end
+
+delete "/attendee/:id/remove_artist" do
+  @attendee = Attendee.find(params['id'])
+  artist_id = params["artist_id"]
+  @attendee.artists.destroy(Artist.find(artist_id))
+  redirect "/attendee/#{@attendee.id}"
+end
+
+get "/artist/:id" do
+  id = params.fetch('id')
+  @artist = Artist.find(id)
+  erb :artist
+end
+
+get('/attendee/:id/remove_artist/:artist_id') do |attendee_id, artist_id|
+  attendee = Attendee.find(attendee_id)
+  artist = Artist.find(artist_id)
+  attendee.artists.destroy(artist)
+  redirect to("/attendee/#{attendee_id}")
 end
 
 
@@ -151,20 +171,15 @@ get "/producer/:prod_id/stage/:stage_id" do |prod_id, stage_id|
   erb :stage
 end
 
-get "/producer/:prod_id/stage/:stage_id/delete_artist" do |prod_id, stage_id|
-  @producer = Producer.find(prod_id)
-  @stage = Stage.find(stage_id)
-  @performances = Performance.all
 
-  erb :stage
+get '/producer/:prod_id/stage/:stage_id/:artist_id/delete_artist' do |prod_id, stage_id, artist_id|
+  producer = Producer.find(prod_id)
+  stage = Stage.find(stage_id)
+  artist = Artist.find(artist_id)
+  stage.artists.destroy(artist)
+  redirect to("/producer/#{prod_id}/stage/#{stage_id}")
 end
 
-delete "/producer/:prod_id/stage/:stage_id/delete_artist" do |prod_id, stage_id|
-  @stage = Stage.find(stage_id)
-
-  @stage.performances.artists.delete(artist)
-  redirect "/producer/#{prod_id}/stage/#{stage_id}"
-end
 
 patch "/producer/:prod_id/stage/:stage_id" do |prod_id, stage_id|
 
