@@ -32,11 +32,13 @@ get "/attendee/signin" do
 end
 
 post "/attendee/success" do
-  @attendee = Attendee.find_by(:username => params.fetch('username'))
-
-  if @attendee.password == params.fetch('password')
-    session[:user_id] = @attendee.id
-    erb :attendee
+  if @attendee = Attendee.find_by(:username => params.fetch('username'))
+    if @attendee.password == params.fetch('password')
+      session[:user_id] = @attendee.id
+      erb :attendee
+    else
+      erb :security
+    end
   else
     erb :security
   end
@@ -63,13 +65,18 @@ get "/producer/signin" do
 end
 
 post "/producer/signed-in" do
-  @producer = Producer.find_by(:username => params.fetch('username'))
-  if @producer.password == params.fetch('password')
-    session[:user_id] = @producer.id
-    @stages = Stage.all
-    @artists = Artist.all
-    redirect "/producer/#{@producer.id}"
+  if @producer = Producer.find_by(:username => params.fetch('username'))
+    if @producer.password == params.fetch('password')
+      session[:user_id] = @producer.id
+      @stages = Stage.all
+      @artists = Artist.all
+      redirect "/producer/#{@producer.id}"
+    else
+      @message = "Invalid username or password"
+      redirect back
+    end
   else
+    @message = "Invlaid username or password"
     redirect back
   end
 end
@@ -127,8 +134,12 @@ end
 post "/stages/new" do
   stage_name = params["stage_name"]
   @stage = stage_name
-  new_stage = Stage.create({:name => stage_name})
-  redirect back
+  @new_stage = Stage.create({:name => stage_name})
+  if @new_stage.save
+    redirect back
+  else
+    erb :security
+  end
 end
 
 get "/stages/:id" do

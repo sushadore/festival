@@ -21,9 +21,6 @@ describe Artist do
       expect(artist.save).to(eq(true))
       artist2 = Artist.create(name: "Logic", bio: "A rad dude", user_reviews: "a".*(281))
       expect(artist2.save).to(eq(false))
-      artist3 = Artist.create(name: "Harry Styles", bio: "A cool dude", user_reviews: "a".*(9))
-      expect(artist3.save).to(eq(false))
-
     end
   end
 end
