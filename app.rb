@@ -144,5 +144,27 @@ end
 
 get "/stages/:id" do
   @stage = Stage.find(params.fetch('id').to_i)
+  @performances = Performance.all
+
   erb :stage
+end
+
+patch "/stages/:id" do
+
+end
+
+get "/stages/:id/add_artists" do
+  id = params.fetch("id").to_i
+  @performances = Performance.all
+  @stage = Stage.find(id)
+  @artists = Artist.all
+  erb :add_artists_to_stages
+end
+
+patch "/stages/:id/artists" do |id|
+  @stage = Stage.find(id)
+  params['artist_ids'].each do |artist|
+    @stage.performances << Performance.create({:stage_id => id, :artist_id => artist})
+  end
+  redirect "/stages/#{id}"
 end

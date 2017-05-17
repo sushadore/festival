@@ -1,0 +1,18 @@
+<h3>Stage: <%= @stage.name %></h3>
+
+<% if @artists.any? %>
+  <h4>Select all artists to add to this stage</h4>
+  <form action="/stages/<%= @stage.id %>/artists" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <% @artists.each do |artist| %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="artist_ids[]" value="<%= artist.id %>"><%= artist.name %>
+        </label>
+      </div>
+    <% end %>
+    <button type="submit" class="btn-warning">Add Artist(s)</button>
+  </form>
+<% else %>
+  <p>There are no artists to add yet. Click <a href="/artists">here</a> to add some first.</p>
+<% end %>
