@@ -1,8 +1,30 @@
 #header {
+  background-color: rgb(244, 229, 215);
+  text-align: center;
+}
+
+#header a {
+  color: rgb(99, 54, 54);
+  text-decoration: none;
+}
+
+.well#attendee-signin {
   background-color: rgb(243, 229, 216);
 }
 
+#footer {
+  background-color: rgb(77, 57, 0);
+  color: rgb(255, 242, 230);
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width:100%;
+  text-align: center
+}
 
+#footer-link {
+  color: rgb(255, 179, 179);
+}
 
 #icon {
    background:none!important;
