@@ -29,6 +29,10 @@ a#header {
   text-decoration: none;
 }
 
+#input-control {
+  width: 30%;
+}
+
 .flash {
    animation-name: flash;
     animation-duration: 30s;
