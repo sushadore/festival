@@ -16,15 +16,13 @@
  <button class="btn btn-default" type="submit">Create Stage</button>
  <br>
 </form>
-
 <hr>
-
 
 <h4>Stages</h4>
 <% if @stages.any? %>
   <h5>Click on stage to edit stage</h5>
   <% @stages.each do |stage| %>
-  <h4><a href="/producer/<%= @producer.id %>/stage/<%= stage.id%>"><%= stage.name %></a><h4>
+    <h4><a href="/producer/<%= @producer.id %>/stage/<%= stage.id%>"><%= stage.name %></a><h4>
   <% end %>
 <% else %>
   <h4>There are no stages yet!</h4>
