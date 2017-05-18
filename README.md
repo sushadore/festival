@@ -10,6 +10,9 @@
 
 A web app that allows producers to add festival schedule details to a password protected database. The database stores stage and artist information and assigns artists to stages based on a unique performance time for that stage. Festival attendees can personalize a festival schedule using database records in order to keep track of artists and stages.
 
+_landing page:_
+![](https://github.com/sowmyadsl/festival/blob/master/public/img/Screen%20Shot%202017-05-18%20at%203.03.45%20PM.png)
+
 ## Specifications
 |Description|Input|Output|
 |----------|:--------:|:---------|
@@ -40,7 +43,7 @@ A web app that allows producers to add festival schedule details to a password p
 
 ## Known Bugs
 
-No known bugs as of now.
+The add artist button on the attendee page throws an error if no boxes are checked.
 
 ## Support and contact details
 
