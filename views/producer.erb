@@ -37,40 +37,6 @@
         </ul>
       <% else %>
       <h4>There are no artists yet!</h4>
-    </ul>
-    <% else %>
-    <h4>There are no stages yet!</h4>
     <% end %>
     <a href="/producer/<%= @producer.id %>/stage/add" class="btn btn-default">Add a Stage</a>
-    <hr>
-    <% if @stages.any? %>
-    <h3>Select all stages to delete:</h3>
-    <form action="/producer/<%= @producer.id %>/delete" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <div class="checkbox">
-        <% @stages.each do |stage| %>
-          <label>
-            <input type="checkbox" name="stage_id[]" value="<%= stage.id %>"><%= stage.name %>
-          </label><br>
-      <% end %>
-      <input type="checkbox" name="stage_id[]" id="hidden-checkbox" checked>
-    </div>
-      <button type="submit" class="btn-danger">DELETE STAGE(S)</button>
-    </form>
-  <% end %>
-  </div>
-  <div class="col-md-6">
-    <h3>Artists:</h3>
-    <% if @artists.any? %>
-      <h4>Click on an artist to edit</h4>
-      <ul>
-        <% @artists.each do |artist| %>
-          <li><a href="/producer/<%= @producer.id %>/artist/<%= artist.id %>"><%= artist.name %></a></li>
-        <% end %>
-      </ul>
-    <% else %>
-    <h4>There are no artists yet!</h4>
-    <% end %>
-    <a href="/producer/<%= @producer.id %>/add-artists" class="btn btn-default">Add an Artist</a>
-  </div>
-</div>
+<% end %>
