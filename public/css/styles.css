@@ -1,6 +1,7 @@
 body {
   background: linear-gradient(rgb(230, 250, 255), rgb(200, 230, 255), rgb(230, 250, 255));
   font-family: 'Roboto', sans-serif;
+  font-size: 18px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -9,10 +10,16 @@ h1, h2, h3, h4, h5, h6 {
 table, th, tr {
   border-width: thick;
   border-bottom: 1px solid rgb(77, 77, 200);
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #hidden-checkbox {
   display: none;
+}
+
+#bio {
+  font-size: 18px;
 }
 
 #header {
@@ -35,7 +42,7 @@ a#header {
 
 .flash {
    animation-name: flash;
-    animation-duration: 30s;
+    animation-duration: 3s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -43,7 +50,7 @@ a#header {
 }
 
 @keyframes flash {
-    from {color: rgb(245, 245, 255);}
+    from {color: rgb(255, 153, 51);}
     to {color: rgb(77, 77, 200);}
 }
 
@@ -71,8 +78,14 @@ a#header {
    cursor: pointer;
 }
 
+.well {
+    border-radius: 30px;
+}
+
 .homepage {
   background-color: rgba(160, 140, 230, 0.6);
+  margin-left: 45px;
+  margin-right: 45px;
 }
 
 .login {
@@ -88,4 +101,5 @@ a#header {
 .style-well {
     background-color: rgba(204, 204, 255, 0.5);
     border: none;
+    border-radius: 10px;
 }

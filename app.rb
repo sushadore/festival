@@ -19,7 +19,7 @@ post "/attendee/signup" do
   if @attendee.save
     erb :attendee
   else
-    erb :security
+    redirect back
   end
 end
 
@@ -35,14 +35,17 @@ get "/attendee/:id" do |id|
   erb :attendee
 end
 
-post "/attendee/signed-in" do
-  @attendee = Attendee.find_by(:username => params.fetch('username'))
-  @artists = Artist.all
-  if @attendee.password == params.fetch('password')
-    session[:user_id] = @attendee.id
-    redirect "/attendee/#{@attendee.id}"
+post "/attendee/signin" do
+  if @attendee = Attendee.find_by(:username => params.fetch('username'))
+    if @attendee.password == params.fetch('password')
+      session[:user_id] = @attendee.id
+      @artists = Artist.all
+      redirect "/attendee/#{@attendee.id}"
+    else
+      redirect back
+    end
   else
-    erb :security
+    redirect back
   end
 end
 
@@ -61,9 +64,9 @@ delete "/attendee/:id/remove_artist" do
   redirect "/attendee/#{@attendee.id}"
 end
 
-get "/artist/:id" do
-  id = params.fetch('id')
-  @artist = Artist.find(id)
+get "/attendee/:attendee_id/artist/:artist_id" do |attendee_id, artist_id|
+  @artist = Artist.find(artist_id)
+  @attendee = Attendee.find(attendee_id)
   erb :artist
 end
 
@@ -142,14 +145,25 @@ get "/producer/:prod_id/artist/:artist_id" do |prod_id, artist_id|
   erb :producer_artist
 end
 
-patch "/producer/:prod_id/artist/:artist_id/update" do |prod_id, artist_id|
+patch "/producer/:prod_id/artist/:artist_id/update-name" do |prod_id, artist_id|
   name = params.fetch('name')
   @artist = Artist.find(artist_id)
   @artist.update(name: name)
-  redirect "/producer/#{prod_id}"
+  redirect "/producer/#{prod_id}/artist/#{artist_id}"
 end
 
+patch "/producer/:prod_id/artist/:artist_id/update-bio" do |prod_id, artist_id|
+  bio = params.fetch('bio')
+  @artist = Artist.find(artist_id)
+  @artist.update(bio: bio)
+  redirect "/producer/#{prod_id}/artist/#{artist_id}"
+end
 
+delete "/producer/:prod_id/artist/:artist_id/delete" do |prod_id, artist_id|
+  artist = Artist.find(artist_id)
+  artist.delete
+  redirect "/producer/#{prod_id}"
+end
 
 
 
@@ -161,12 +175,12 @@ get "/producer/:prod_id/stage/add" do |prod_id|
   erb :add_stage
 end
 
-post "/producer/:prod_id/stage/new" do
+post "/producer/:prod_id/stage/new" do |prod_id|
   stage_name = params["stage_name"]
   @stage = stage_name
   @new_stage = Stage.create({:name => stage_name})
   if @new_stage.save
-    redirect
+    redirect "/producer/#{prod_id}"
   else
     redirect back
   end
@@ -197,8 +211,8 @@ patch "/producer/:prod_id/stage/:stage_id/update" do |prod_id, stage_id|
 end
 
 delete "/producer/:prod_id/stage/:stage_id/delete" do |prod_id, stage_id|
-  @stage = Stage.find(stage_id)
-  @stage.delete
+  stage = Stage.find(stage_id)
+  stage.delete
   redirect "/producer/#{prod_id}"
 end
 
