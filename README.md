@@ -47,31 +47,7 @@ The add artist button on the attendee page throws an error if no boxes are check
 
 ## Support and contact details
 
-Feel free to contact me
-
-## Technologies Used
-
-* Ruby
-* Sinatra
-* HTML
-* CSS
-* Bootstrap https://getbootstrap.com/
-* ES6
-* Jquery https://jquery.com/
-* Activerecord
-
-### License
-
-MIT open source
-
-
-Copyright (c) 2017 **Susha Dore,Sowmya Dinavahi,Steven Galvin,Monique St Laurent**
-
-No known bugs as of now.
-
-## Support and contact details
-
-Feel free to contact me
+Feel free to contact me susha.dore@gmail.com
 
 ## Technologies Used
 
