@@ -42,7 +42,7 @@ post "/attendee/signin" do
       @artists = Artist.all
       redirect "/attendee/#{@attendee.id}"
     else
-      redirect back
+      erb :login_error
     end
   else
     erb :login_error
@@ -91,12 +91,10 @@ post "/producer/signed-in" do
       @artists = Artist.all
       redirect "/producer/#{@producer.id}"
     else
-      @message = "Invalid username or password"
-      redirect back
+      erb :login_error
     end
   else
-    @message = "Invlaid username or password"
-    redirect back
+    erb :login_error
   end
 end
 
@@ -110,8 +108,7 @@ post "/producer" do
   if @producer.save
     redirect "/producer/#{@producer.id}"
   else
-    @message = "Please enter correct information"
-    redirect back
+    erb :login_error
   end
 end
 
