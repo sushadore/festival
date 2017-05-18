@@ -1,6 +1,6 @@
 <h2> <%= @producer.name %> </h2>
 
-<h4>Stage: <%= @stage.name %></h4>
+<h3>Stage: <%= @stage.name %></h3>
 
 <% if @artists.any? %>
   <h4>Select all artists to add to this stage</h4>
@@ -14,7 +14,7 @@
     </select>
     <br>
     <label for="performace_time">Then select a performance time <small>(Date-time format):</small></label>
-    <input type="datetime-local" name="performance_time">
+    <input type="datetime-local" name="performance_time" required>
     <br>
     <button type="submit" class="btn btn-primary">Add Artist</button>
   </form>

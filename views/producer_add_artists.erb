@@ -1,4 +1,11 @@
-<h1><%= @producer.name %></h1>
+<div class="row">
+  <div class="col-md-6">
+    <h3> <%= @producer.name %> </h3>
+  </div>
+  <div class="col-md-6">
+    <a class="btn btn-primary" href="/producer/<%= @producer.id %>" style="float: right;">Producer Page</a>
+  </div>
+</div>
 <hr>
 <div class="row">
   <div class="col-md-6">
@@ -24,7 +31,7 @@
       <h5>Here are all the artists you've added to the festival:</h5>
       <ul>
         <% @artists.each do |artist| %>
-        <li><a href="/producer/artist/<%= artist.id %>"><%= artist.name %></a></li>
+        <li><a href="/producer/<%= @producer.id %>/artist/<%= artist.id %>"><%= artist.name %></a></li>
       <% end %>
       </ul>
     <% else %>

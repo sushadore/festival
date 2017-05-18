@@ -5,18 +5,16 @@
 
   <div class="col-md-4 well login">
     <h3>Login to the attendee website: </h3>
-    <form action="/attendee/signed-in" method="post">
+    <form action="/attendee/signin" method="post">
       <label for="username">User Name:  </label>
-      <input type="text" name="username" class="form-control">
+      <input type="text" name="username" class="form-control" required>
       <br>
       <label for="password">User Password:  </label>
-      <input type="password" name="password" class="form-control">
+      <input type="password" name="password" class="form-control" required>
       <br>
       <button type="submit" class="btn btn-primary">Log In</button>
     </form>
   </div>
   <div class="col-md-4">
-
-
   </div>
 </div>

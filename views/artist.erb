@@ -1,5 +1,12 @@
-<h2>Artist: <u><%= @artist.name %></u></h2>
-<hr>
 <div class="row">
-  <p><%= @artist.bio %></p>
+  <div class="col-md-6">
+    <h1><%= @attendee.name %></h1>
+  </div>
+  <div class="col-md-6">
+    <a class="btn btn-primary" href="/attendee/<%= @attendee.id %>" style="float: right;">Back</a>
+  </div>
 </div>
+<hr>
+<h2>Artist: <%= @artist.name %></h2>
+<h3>A little about the artist:</h3>
+<p id="bio"><%= @artist.bio %></p>
