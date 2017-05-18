@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe('producers create an account', {:type => :feature}) do
+describe('producers can create an account', {:type => :feature}) do
   it('allows producers to signup for an account') do
     visit('/producer/signup')
     fill_in("producer[name]", :with => "susha")
@@ -28,11 +28,14 @@ describe('producer can add stages', {:type => :feature}) do
   end
 end
 
-describe('producer can update stages', {:type => :feature}) do
-  it('allows producers to update a stage') do
-    visit('/producer/1/stage/1')
-    fill_in("name", :with => "red stage")
-    click_button('Update Stage')
-    expect(page).to have_content("Red Stage")
+describe('producer can delete stages', {:type => :feature}) do
+  it('allows producers to delete stages') do
+    visit('/producer/1/stage/add')
+    fill_in("stage_name", :with => "blue stage")
+    click_button('Create Stage')
+    visit('/producer/1')
+    all("input[type='checkbox']").each{|box| box.set('true')}
+    click_button('DELETE STAGE(S)')
+    expect(page).to have_no_content("Blue Stage")
   end
 end

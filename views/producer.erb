@@ -19,13 +19,14 @@
       <h3>Select all stages to delete:</h3>
       <form action="/producer/<%= @producer.id %>/delete" method="post">
         <input type="hidden" name="_method" value="delete">
-        <% @stages.each do |stage| %>
-          <div class="checkbox">
+        <div class="checkbox">
+          <% @stages.each do |stage| %>
             <label>
               <input type="checkbox" name="stage_id[]" value="<%= stage.id %>"><%= stage.name %>
-            </label>
-          </div>
+            </label><br>
         <% end %>
+        <input type="checkbox" name="stage_id[]" id="hidden-checkbox" checked>
+      </div>
         <button type="submit" class="btn-danger">DELETE STAGE(S)</button>
       </form>
     <% end %>
@@ -33,7 +34,7 @@
     <div class="col-md-6">
       <h3>Artists:</h3>
       <% if @artists.any? %>
-        <h4>Click on artist to edit</h4>
+        <h4>Click on an artist to edit</h4>
         <ul>
           <% @artists.each do |artist| %>
             <li><a href="/producer/artist/<%= artist.id %>"><%= artist.name %></a></li>

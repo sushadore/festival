@@ -27,23 +27,23 @@ get "/attendee/signin" do
   erb :attendee_login
 end
 
-post "/attendee/success" do
+get "/attendee/:id" do |id|
+  @attendee = Attendee.find(id)
+  @artists = Artist.all
+  @attendee_artist = @attendee.artists
+  @artists = Artist.all - @attendee_artist
+  erb :attendee
+end
+
+post "/attendee/signed-in" do
   @attendee = Attendee.find_by(:username => params.fetch('username'))
   @artists = Artist.all
   if @attendee.password == params.fetch('password')
     session[:user_id] = @attendee.id
-    erb :attendee
+    redirect "/attendee/#{@attendee.id}"
   else
     erb :security
   end
-end
-
-get "/attendee/:id" do
-  id = params.fetch('id')
-  @attendee = Attendee.find(id)
-  @attendee_artist = @attendee.artists
-  @artists = Artist.all - @attendee_artist
-  erb :attendee
 end
 
 post "/attendee/:id/add_artist" do
@@ -67,7 +67,7 @@ get "/artist/:id" do
   erb :artist
 end
 
-get('/attendee/:id/remove_artist/:artist_id') do |attendee_id, artist_id|
+get('/attendee/:attendee_id/remove_artist/:artist_id') do |attendee_id, artist_id|
   attendee = Attendee.find(attendee_id)
   artist = Artist.find(artist_id)
   attendee.artists.destroy(artist)
@@ -134,10 +134,10 @@ end
 
 # PRODUCER ARTIST CRUD *********
 
-get "/producer/artist/:id" do
-  id = params.fetch('id')
+get "/producer/artist/:id" do |id|
+  @stages = Stage.all
   @artist = Artist.find(id)
-  erb :artist
+  erb :producer_artist
 end
 
 
@@ -164,7 +164,7 @@ get "/producer/:prod_id/stage/:stage_id" do |prod_id, stage_id|
   @producer = Producer.find(prod_id)
   @stage = Stage.find(stage_id)
   @performances = Performance.all
-  erb :stage
+  erb :producer_stage
 end
 
 
@@ -177,8 +177,11 @@ get '/producer/:prod_id/stage/:stage_id/:artist_id/delete_artist' do |prod_id, s
 end
 
 
-patch "/producer/:prod_id/stage/:stage_id" do |prod_id, stage_id|
-
+patch "/producer/:prod_id/stage/:stage_id/update" do |prod_id, stage_id|
+  name = params.fetch('name')
+  @stage = Stage.find(stage_id)
+  @stage = Stage.update(name: name)
+  redirect "/producer/#{prod_id}"
 end
 
 delete "/producer/:prod_id/stage/:stage_id/delete" do |prod_id, stage_id|
