@@ -19,7 +19,7 @@ post "/attendee/signup" do
   if @attendee.save
     erb :attendee
   else
-    redirect back
+    erb :login_error
   end
 end
 
@@ -45,7 +45,7 @@ post "/attendee/signin" do
       redirect back
     end
   else
-    redirect back
+    erb :login_error
   end
 end
 
