@@ -1,3 +1,4 @@
+
 <h2>Artist: <%= @artist.name %></h2>
 <table style = "width:50%">
   <tr>
@@ -9,20 +10,35 @@
   <% end %>
   </tr>
 </table>
+<h2> <%= @producer.name %> </h2>
+<h4>Artist: <%= @artist.name %></h4>
+<% if @stages.any? %>
+  <table style = "width:15%">
+    <tr>
+      <th>Stages:</th>
+    </tr>
+    <% @stages.each do |stage| %>
+    <tr>
+      <th><h4><a href="/stages/<%= stage.id%>"><%= stage.name %></a><h4></th>
+    <% end %>
+    </tr>
+  </table>
+<% else %>
+  <p>There are no stages added yet. Click <a href="/producer/<%= @producer.id %>/stage/add">here</a> to go add some first
+<% end %>
+
 <hr>
 <h3>Update Artist</h3>
-<form action ="/artists/<%= @artist.id%>" method="post">
+<form action ="/producer/<%= @producer.id %>/artist/<%= @artist.id %>/update" method="post">
   <input type="hidden" name="_method" value="patch">
   <div class="form-group">
     <label for="name">Change Name</label>
-    <input class="form-control" type="text" name="name">
+    <input id="input-control" class="form-control" type="text" name="name">
   </div>
-  <button class="btn btn-default" type ="submit">Edit Name</button>
+  <button class="btn btn-primary" type ="submit">Edit Name</button>
 </form><br>
 
 <form action="/artists/<%= @artist.id %>" method="post">
   <input type="hidden" name="_method" value="delete">
-  <button class="btn btn-default" type="submit">Delete Artist</button>
+  <button class="btn-danger" type="submit">DELETE ARTIST</button>
 </form><br>
-
-<a href="/producer_form">Producer Form</a>
