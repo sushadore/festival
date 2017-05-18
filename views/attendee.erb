@@ -10,10 +10,15 @@
     <% @attendee.artists.each do |artist| %>
       <tr>
         <th><a href="/artist/<%= artist.id%>"><%= artist.name %></a></th>
-        <th>  <!-- stage will go here --> </th>
+        <th>
+          <% artist.stages.each do |stage| %>
+            <p><%= stage.name %></p>
+          <% end %>
+        </th>
       <th><a href="/attendee/<%= @attendee.id %>/remove_artist/<%= artist.id %>"><span class="glyphicon glyphicon-remove-circle warning" aria-hidden="true"></span></a></th>
     <% end %>
   </tr>
+  
   </table>
     <h4>Click on artist to view bio or leave a review</h4>
 <% end %>
