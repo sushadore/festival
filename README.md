@@ -30,7 +30,7 @@ _landing page:_
 * Attendee alert notification of favorite artist's performance a half an hour before they go on stage.
 
 ## Setup/Installation Requirements
-
+* Open it on Heroku by clicking on this link :https://protected-bastion-31527.herokuapp.com/ or
 * clone the git repository
 * navigate to the directory in your terminal
 * run the following commands to create the database and tables
