@@ -28,6 +28,18 @@ describe('producer can add stages', {:type => :feature}) do
   end
 end
 
+describe('producer can add artists', {:type => :feature}) do
+  it('allows a producer to add a stage') do
+    visit('/producer/1/add-artists')
+    artist = Artist.create(name: "Katy Perry", bio: "She is so cool")
+    artist.save
+    fill_in("artist[name]", :with => "Katy perry")
+    fill_in("artist[bio]", :with => "She is so cool")
+    click_button('Add Artist')
+    expect(page).to have_content(Artist)
+  end
+end
+
 describe('producer can delete stages', {:type => :feature}) do
   it('allows producers to delete stages') do
     visit('/producer/1/stage/add')
