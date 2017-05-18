@@ -116,7 +116,6 @@ get "/producer/:id" do
   @producer = Producer.find(params.fetch('id'))
   @stages = Stage.all
   @artists = Artist.all
-
   erb :producer
 end
 
